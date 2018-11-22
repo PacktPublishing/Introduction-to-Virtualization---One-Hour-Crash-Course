@@ -1,0 +1,265 @@
+WEBVTT
+
+00:01.110 --> 00:05.100
+Mobility is a major benefit of virtualization.
+
+00:05.100 --> 00:12.380
+So let's take a look at how virtualizing our infrastructure can provide us with these mobility benefits.
+
+00:13.260 --> 00:16.610
+So why is mobility such an important benefit.
+
+00:16.680 --> 00:24.330
+Well maybe we have multiple hosts and we've got many virtual machines running on all of these hosts
+
+00:25.470 --> 00:27.460
+and the workload isn't very balanced.
+
+00:27.550 --> 00:27.800
+Right.
+
+00:27.810 --> 00:31.810
+In this case we see a host one which has three virtual machines running on it.
+
+00:31.860 --> 00:40.960
+We may want to migrate some of those VMs to host to to equalize the workload on those two hosts So that's
+
+00:40.960 --> 00:48.060
+reason number one we want to make sure that the resource utilization of our hosts is fairly evenly utilized.
+
+00:48.190 --> 00:52.810
+If Host 1 is running really low on memory maybe we move some VMS to some other host.
+
+00:53.050 --> 00:56.430
+And ideally I'd love to do that without any downtime.
+
+00:57.430 --> 01:05.050
+Do some sort of live migration or Wii motion to take a running VM and move it from one physical server
+
+01:05.050 --> 01:08.470
+to another with no downtime.
+
+01:08.490 --> 01:11.210
+So that's one reason we might want to migrate VM.
+
+01:11.220 --> 01:14.700
+Another reason is maybe we need to perform some sort of maintenance.
+
+01:14.700 --> 01:21.810
+Maybe I need to install some physical memory and a host or do some other sort of physical maintenance.
+
+01:21.940 --> 01:25.510
+And so I know I'm going to have downtime on a host.
+
+01:25.530 --> 01:32.790
+So I migrate all of the VM to another host perform my maintenance install my memory or whatever it is
+
+01:32.790 --> 01:33.530
+I need to do.
+
+01:34.530 --> 01:41.310
+Maybe I'm installing patches and I need to reboot I can migrate all the VMS off of that host and do
+
+01:41.310 --> 01:46.490
+whatever I need to and then bring them back once the host is back up.
+
+01:46.660 --> 01:52.420
+So those are two of the most common reasons to migrate virtual machines is the number one.
+
+01:52.420 --> 01:56.450
+Give us some sort of performance benefit or number to avoid downtime.
+
+01:59.370 --> 02:04.590
+So let's take a look at an example migration.
+
+02:04.590 --> 02:09.420
+And here we have a virtual machine running on Host 1.
+
+02:09.810 --> 02:14.340
+We see a host up here with a VM running on it.
+
+02:14.640 --> 02:19.560
+And I want to do something to this host maybe patching it right.
+
+02:19.590 --> 02:26.100
+If we're talking about a VM where ESX host maybe update manager has just installed patches and I need
+
+02:26.100 --> 02:29.500
+to reboot this host.
+
+02:29.560 --> 02:33.770
+So in that case Ideally I'd like to get all of the names off of it first.
+
+02:34.210 --> 02:43.390
+So what I can do is initiate a migration of this VM from Host 1 to host 2 but there's a few things that
+
+02:43.390 --> 02:46.970
+need to be in place in order for this to happen.
+
+02:47.080 --> 02:51.080
+Number one and most important on the list shared storage.
+
+02:51.310 --> 02:54.980
+This VM is not just running on the host.
+
+02:55.000 --> 02:57.860
+It also has a set of files right.
+
+02:57.880 --> 03:02.200
+It's got a virtual disk it's got a configuration file.
+
+03:02.200 --> 03:05.260
+It might have snapshots.
+
+03:05.500 --> 03:13.940
+If I'm going to take that VM and move it down here to host to host to needs to be able to access that
+
+03:13.940 --> 03:21.560
+set of files right so that is my first prerequisite if I'm going to move that VM from one host to another
+
+03:22.310 --> 03:24.560
+that VMS files must be available.
+
+03:25.530 --> 03:33.330
+This second requirement that I have as a prerequisite is that this virtual machine has a virtual neck
+
+03:33.330 --> 03:35.250
+on it.
+
+03:35.250 --> 03:43.020
+This is a VM that has network access and that virtual neck is connected to a virtual switch and it's
+
+03:43.020 --> 03:50.040
+probably on a V level and the virtual switches connected to physical switch and the virtual machine
+
+03:50.070 --> 03:52.980
+is address accordingly.
+
+03:52.980 --> 03:55.280
+All right this VM exists on some Wii land.
+
+03:55.410 --> 03:58.700
+It's got some port group on the virtual wall switch.
+
+03:59.250 --> 04:08.100
+If I move this V.M. down to this ESX I host and the virtual switch there does not have a matching configuration.
+
+04:09.440 --> 04:11.900
+And that network is now unavailable.
+
+04:11.900 --> 04:14.800
+That's not going to work out very well.
+
+04:15.200 --> 04:21.610
+So I've got to have a compatible network on both of these hosts.
+
+04:21.770 --> 04:27.250
+Basically the way you want to think about it is the VM right now is running on host one.
+
+04:27.650 --> 04:31.010
+I don't want the VM to see anything different when it moves the host to.
+
+04:31.030 --> 04:37.380
+Right now I want the compatible processors I want if there am Dione host one I want them to be HMD on
+
+04:37.400 --> 04:38.370
+hosts too.
+
+04:38.600 --> 04:42.110
+If they're intel on Host 1 I want them to be intel on Host 2 right.
+
+04:42.110 --> 04:46.950
+I want these two host to be pretty much as close to identical as I can possibly get them.
+
+04:47.060 --> 04:53.070
+And definitely when it comes to the network and storage configuration they need to match up.
+
+04:53.110 --> 04:59.120
+And then finally I need some way to copy the VM from Host 1 to host 2.
+
+04:59.260 --> 05:05.290
+So we're going to have a special network that takes all of the contents of memory takes what's currently
+
+05:05.290 --> 05:09.150
+happening on this VM and creates a copy of it here.
+
+05:09.250 --> 05:11.160
+On the other host.
+
+05:11.170 --> 05:16.690
+OK so now that I've covered my prerequisites the rest of this is actually pretty straightforward right.
+
+05:16.840 --> 05:21.650
+A copy of the VM is going to be created on a destination host.
+
+05:21.700 --> 05:25.920
+In this case let's use a little bit of the Amwell terminology.
+
+05:25.930 --> 05:31.690
+We're going to use something called a VM kernel port to create a network and that network is going to
+
+05:31.690 --> 05:36.250
+be used to create a copy of this VM on the destination host.
+
+05:38.130 --> 05:45.750
+And when that copy is complete we will capture everything that's changed in that VM during that copy
+
+05:45.750 --> 05:47.190
+process.
+
+05:47.370 --> 05:53.700
+We call this a memory bitmap all the contents of that memory bitmap are transferred over to the new
+
+05:53.700 --> 06:00.110
+copy of the VM and that now becomes my live running virtual machine.
+
+06:00.680 --> 06:09.480
+And the downtime is so met my new that it's not even perceptible to the users of my application.
+
+06:09.500 --> 06:16.540
+This is called the live migration or a Wii motion of a virtual machine as I take it while it's running
+
+06:16.820 --> 06:20.120
+and move it from one host to another.
+
+06:20.240 --> 06:25.970
+And this opens up all sorts of flexibility for me because I can move the arms wherever I need them to
+
+06:25.970 --> 06:26.330
+be.
+
+06:30.460 --> 06:38.760
+The other door that this opens to me is I can do automated load balancing I can group together hosts
+
+06:38.850 --> 06:41.800
+in what's called the cluster.
+
+06:41.990 --> 06:48.140
+And once I group those hosts together what I want to do is allow my virtual machines to take advantage
+
+06:48.230 --> 06:51.840
+of the resources of the cluster as a whole.
+
+06:52.730 --> 06:59.780
+I want to consider all four of these hosts kind of interchangeable and I don't really care which host
+
+06:59.780 --> 07:01.420
+my VMs are running on.
+
+07:01.520 --> 07:07.670
+If the Dems need to move around to equalize workload lets allow that to happen and lets allow it to
+
+07:07.670 --> 07:10.890
+happen automatically.
+
+07:10.910 --> 07:17.030
+That's the purpose of automatic load balancing in VM whereas terminology this is called distributed
+
+07:17.030 --> 07:25.150
+resource scheduler or Dior's in order to allow virtual machine to automatically beat a live migrated
+
+07:25.450 --> 07:27.000
+from host to host.
+
+07:27.400 --> 07:30.820
+For the purposes of load balancing across those hosts.

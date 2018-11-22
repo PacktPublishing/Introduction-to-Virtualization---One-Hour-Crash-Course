@@ -1,0 +1,211 @@
+WEBVTT
+
+00:01.180 --> 00:05.920
+In this video we're going to learn about our third food group network.
+
+00:05.940 --> 00:10.220
+So far we've learned about CPQ and memory virtualization.
+
+00:10.230 --> 00:17.280
+Now let's take some time to focus on how network resources are delivered to virtual machines.
+
+00:17.280 --> 00:25.060
+So in our diagram here we see a Windows virtual machine at the top left in our little blue box here.
+
+00:25.560 --> 00:35.820
+And the Windows VM is running on a host on some sort of hypervisor and the Windows virtual machine has
+
+00:35.820 --> 00:39.930
+what we call a virtual neck or V-neck.
+
+00:39.930 --> 00:41.570
+Now here's the thing.
+
+00:41.610 --> 00:45.340
+Windows doesn't know that it's running within a virtual machine.
+
+00:45.450 --> 00:52.320
+So Windows expects to see all of the same sorts of hardware that it would see if it was running on a
+
+00:52.320 --> 00:53.670
+physical server.
+
+00:53.910 --> 00:59.420
+Windows is going to need to CCP in memory and we've already kind of covered how those are delivered.
+
+00:59.790 --> 01:07.200
+But when it comes to network virtualization we need to provide our virtual machine a virtual network
+
+01:07.200 --> 01:09.190
+interface card.
+
+01:09.770 --> 01:16.760
+And so what Windows is actually going to see is drivers right it's going to see drivers for a neck for
+
+01:16.760 --> 01:18.570
+a network interface card.
+
+01:18.660 --> 01:27.380
+Windows is going to have no idea as the guest operating system that is not actually really a physical
+
+01:27.380 --> 01:28.390
+neck.
+
+01:28.670 --> 01:29.800
+It's a virtual neck.
+
+01:29.810 --> 01:39.580
+It's fake hardware presented to our virtual machine as if it was real.
+
+01:39.590 --> 01:47.750
+So if I were to have a physical server with a physical Nic I would connect it to a port on a physical
+
+01:47.750 --> 01:52.920
+switch if I've got a virtual machine with a virtual neck.
+
+01:53.030 --> 01:58.850
+I'm going to connect it to a port on a virtual switch much like we would do with a physical machine.
+
+01:59.300 --> 02:04.730
+And so inside of our hypervisor we're going to have something called the Virtual switch.
+
+02:05.090 --> 02:08.980
+And this is a switch in every sense of the word.
+
+02:09.440 --> 02:16.160
+I can connect to multiple virtual machines to this virtual switch and they can communicate with each
+
+02:16.160 --> 02:16.640
+other.
+
+02:20.830 --> 02:26.620
+As long as I put those VMs on the same LAN they're gonna be able to communicate through that virtual
+
+02:26.620 --> 02:32.190
+switch just like they would be able to communicate through any other type of switch.
+
+02:32.230 --> 02:35.240
+So here we see the first VM is connected to a virtual switch.
+
+02:35.290 --> 02:43.090
+I connect a second VM and I can now send traffic from one VM to another directly within that virtual
+
+02:43.090 --> 02:43.890
+switch.
+
+02:44.880 --> 02:51.350
+And that traffic never has to leave the ESX host as long as those virtual machines are on the same Villalon
+
+02:52.350 --> 02:55.390
+and virtual switches do support villans as well.
+
+02:56.010 --> 03:01.800
+And as long as those VMs are on the same VLAN they can communicate and the traffic never has to traverse
+
+03:01.890 --> 03:03.080
+the physical network
+
+03:05.920 --> 03:10.140
+but some of my traffic may need to traverse the physical network.
+
+03:10.390 --> 03:19.060
+And so my virtual switch is going to need an uplink right just like a physical switch has uplinks to
+
+03:19.060 --> 03:28.030
+maybe a higher level physical switch or to a physical router my virtual switch needs uplinks.
+
+03:28.190 --> 03:35.300
+And what the uplinks are are the actual physical adapters on the host.
+
+03:35.300 --> 03:39.020
+So they may be called the next physical next.
+
+03:39.020 --> 03:40.880
+They may be called V.M. next.
+
+03:40.910 --> 03:48.350
+That's what V.M. where refers to them as but when I create a hypervisor on a host that host has some
+
+03:48.350 --> 03:54.950
+network interface cards or just like any other server what and I'm going to connect those physical network
+
+03:54.950 --> 04:01.700
+interface cards on my host to a physical switch and that physical switch is going to have connections
+
+04:01.700 --> 04:05.700
+to routers it's going to have a way to get traffic out to the Internet.
+
+04:05.930 --> 04:06.140
+Right.
+
+04:06.140 --> 04:12.370
+It's going to connect to other physical servers that are inside that same data center.
+
+04:13.740 --> 04:17.770
+And so my virtual machines may need to communicate with all of those components.
+
+04:21.490 --> 04:28.300
+And if there traffic needs to actually leave the host to talk to something that's outside the host or
+
+04:28.300 --> 04:34.540
+to hit a router to get to another Villon or another network that traffic is going to flow out of my
+
+04:34.540 --> 04:35.160
+VM.
+
+04:36.120 --> 04:45.780
+Through the virtual switch out one of the virtual switches uplinks towards the physical network.
+
+04:46.230 --> 04:52.860
+And when that traffic arrives at the physical switch I know it's labeled packy here but it's really
+
+04:52.860 --> 04:58.470
+an Ethernet frame when that Ethernet frame arrives at the physical switch the physical switch will do
+
+04:58.470 --> 05:04.950
+a Mac table lock up it will pump it out the appropriate port towards the appropriate destination where
+
+05:04.950 --> 05:06.530
+that packet needs to go.
+
+05:06.570 --> 05:08.070
+Or maybe it's headed to the Internet.
+
+05:08.100 --> 05:11.690
+Maybe it's headed to a physical host on my own local network.
+
+05:11.700 --> 05:12.660
+Who knows.
+
+05:14.000 --> 05:19.580
+But now I've established the ability for all of my virtual machines to communicate with all of the devices
+
+05:19.590 --> 05:21.280
+on my physical network.
+
+05:21.740 --> 05:24.380
+And that's what a virtual switch does.
+
+05:26.030 --> 05:32.120
+And really the first element of this whole equation is to basically trick the guest operating system
+
+05:32.390 --> 05:36.200
+into thinking Yup you've got to you've got a network interface card.
+
+05:36.200 --> 05:36.700
+Right.
+
+05:36.950 --> 05:44.030
+So will supply drivers to Windows and it will think it has an actual hardware device but when it sends
+
+05:44.030 --> 05:49.970
+those packets out when it sends that traffic out the traffic is really getting sucked up by instant
+
+05:50.000 --> 05:51.230
+really pictured here.
+
+05:51.230 --> 05:57.350
+But it's getting sucked up by the hypervisor and the hypervisor is pointing it towards the appropriate
+
+05:57.350 --> 05:58.500
+virtual switch.

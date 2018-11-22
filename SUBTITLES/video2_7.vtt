@@ -1,0 +1,250 @@
+WEBVTT
+
+00:01.680 --> 00:06.240
+In this video we're going to learn about our fourth and final food group storage.
+
+00:06.270 --> 00:12.870
+So we've already learned about C-p memory and network and the fourth food group that my VM needs is
+
+00:12.870 --> 00:22.380
+storage and we want to bear in mind as we're working our way through these four food groups that this
+
+00:22.380 --> 00:28.540
+guest operating system has no idea that it's running within a virtual machine.
+
+00:28.920 --> 00:38.620
+This VM has no dedicated physical hardware and that includes a desk or the virtual machine doesn't have
+
+00:38.680 --> 00:42.020
+a physical disk that's dedicated to it.
+
+00:45.460 --> 00:50.700
+So much like we saw with networking with networking.
+
+00:50.710 --> 00:55.250
+We had a virtual Mac with storage virtualization.
+
+00:55.250 --> 00:58.420
+We're going to have a virtual scuzzy controller.
+
+00:59.090 --> 01:06.390
+And if we think about the way that a physical server works with internal hard drives when the operating
+
+01:06.390 --> 01:13.140
+system needs to write some sort of data to disk the operating system generates a scuzzy command if it
+
+01:13.140 --> 01:20.550
+needs to read data from disk it generates a scuzzy command and it sends that command to the scuzzy controller
+
+01:20.880 --> 01:25.640
+which interfaces with those physical disks.
+
+01:25.670 --> 01:28.240
+That's the way that Windows is used to working.
+
+01:28.280 --> 01:33.850
+And guess what Windows doesn't know that it's running within a virtual machine here.
+
+01:33.920 --> 01:35.960
+So we need to maintain that illusion.
+
+01:37.600 --> 01:42.910
+So what we're going to do is provide windows with a virtual scuzzy controller.
+
+01:43.000 --> 01:49.330
+We're going to make it feel just like it used to feel when the virtual machine was connected to local
+
+01:49.360 --> 01:51.050
+physical disks.
+
+01:51.670 --> 01:58.900
+So when Windows needs to carry out some sort of storage command it's going to think I've got a scuzzy
+
+01:58.900 --> 02:03.400
+controller let me send that storage command to the scuzzy controller.
+
+02:03.400 --> 02:11.540
+And what happens after the fact is the virtual scuzzy controller is actually a virtual The vice.
+
+02:11.780 --> 02:17.660
+So essentially what you're doing is you're taking those storage commands and you're giving them to the
+
+02:17.660 --> 02:23.670
+hypervisor the virtual machine is sending those storage commands through its virtual scuzzy controller
+
+02:24.300 --> 02:27.430
+and they are arriving at the hypervisor.
+
+02:27.650 --> 02:33.720
+And now the hypervisor determines what happens to those storage commands from here.
+
+02:34.010 --> 02:41.600
+If this virtual machine has its VMT K or virtual disk file on a local disk it will simply send those
+
+02:41.600 --> 02:50.740
+storage commands that file on a local disk or maybe we're using a storage array it could be a fiber
+
+02:50.740 --> 02:51.940
+channel storage array.
+
+02:52.000 --> 02:58.510
+It could be an ethernet based I scuzzy storage array that could be fiber channel over either that it
+
+02:58.510 --> 02:59.720
+really doesn't matter.
+
+02:59.860 --> 03:01.530
+They all sort of work the same way.
+
+03:01.540 --> 03:04.960
+What's really different is the network.
+
+03:05.150 --> 03:10.320
+So maybe the hypervisor will send that storage command to let's say it's a fiber channel.
+
+03:10.430 --> 03:17.870
+HBO is my storage connection and that storage command will traverse that fiber channel network till
+
+03:17.880 --> 03:20.580
+it eventually arrives at the virtual desk.
+
+03:20.690 --> 03:24.950
+And you can see I've named some of the files here for that virtual machine.
+
+03:24.950 --> 03:31.550
+I've named them according to what they would be named in VM Ware but the concepts remain the same regardless
+
+03:31.550 --> 03:36.860
+of the hypervisor your virtual machine is going to have a virtual disk.
+
+03:37.010 --> 03:43.160
+And so that's how the scuzzy commands get from your virtual machine to your virtual machines virtual
+
+03:43.220 --> 03:47.600
+disk regardless of where that virtual disk is located.
+
+03:47.600 --> 03:54.050
+So let's watch our scuzzy command as the Windows virtual machine generates a scuzzy command.
+
+03:54.290 --> 03:57.130
+It sends it to the virtual scuzzy controller.
+
+03:57.230 --> 04:04.660
+The hypervisor determines the appropriate location for that virtual desk sends it out the storage adapter
+
+04:04.910 --> 04:11.850
+and the storage command arrives at the data store and the changes are actually written to the file that
+
+04:11.850 --> 04:16.790
+contains the virtual machines virtual desk.
+
+04:17.330 --> 04:22.380
+Now one other important concept that I want to talk about here.
+
+04:24.310 --> 04:30.640
+One of the big benefits of virtualization is mobility and and we'll get to that as we get further into
+
+04:30.640 --> 04:31.750
+this course.
+
+04:31.780 --> 04:33.970
+What I mean by mobility.
+
+04:34.000 --> 04:39.340
+But just think about a scenario here where we have down here at the bottom.
+
+04:39.340 --> 04:41.910
+We'll call this a fiber channel storage array.
+
+04:42.520 --> 04:48.270
+And maybe I've just invested in a new I scuzzy storage array.
+
+04:48.490 --> 04:53.590
+And please excuse the crudity of my little diagram here.
+
+04:53.620 --> 04:59.440
+But I want to use it to illustrate a point I made up here I've got a nice cozy storage array down to
+
+04:59.440 --> 05:01.660
+the bottom I've got a Fiber Channel Sorge right.
+
+05:01.990 --> 05:09.250
+And maybe I want to take this virtual machine and all of its files and relocate those files to my scuzzy
+
+05:09.490 --> 05:17.500
+storage device which is on a different network ethernet network while I can do that right.
+
+05:17.510 --> 05:23.380
+And the reason I can do that is because of my hypervisor layer.
+
+05:23.580 --> 05:31.270
+So as the scuzzy commands come out of my virtual machine they are received by the hypervisor.
+
+05:31.320 --> 05:36.470
+It's it's going to then take those storage commands and do whatever it needs to do with them.
+
+05:36.840 --> 05:44.070
+Right so if I've got some other storage adapter here connecting to I scuzzy and I relocate this VMS
+
+05:44.100 --> 05:51.220
+files to that other storage array the hypervisor is aware that I've made that change.
+
+05:52.160 --> 05:57.940
+And it simply redirects those storage commands to the new location and you can even do this without
+
+05:58.030 --> 05:59.950
+any downtime on your virtual machine
+
+06:02.610 --> 06:06.420
+so storage virtualization gives us some pretty awesome capabilities.
+
+06:06.420 --> 06:12.240
+One other capability that I want to mention want to throw one more scenario out here.
+
+06:12.240 --> 06:21.420
+Let's say that we have multiple ESX I host and I now choose to take this Windows VM and relocate the
+
+06:21.420 --> 06:24.290
+live state of the VM to another host.
+
+06:26.410 --> 06:32.890
+Well that's going to work out just fine too as long as this other host has the ability to connect to
+
+06:32.890 --> 06:39.950
+the shared storage my virtual machine will still be able to access its virtual disk and all of the other
+
+06:39.950 --> 06:42.370
+critical VM files that it needs.
+
+06:42.830 --> 06:50.880
+So this is how storage virtualization and shared storage help us to achieve mobility.
+
+06:50.900 --> 06:56.960
+We can take virtual machines move them to different hosts we can move their files from one storage system
+
+06:56.960 --> 07:04.800
+to another without any downtime and it's all due to the fact that we have this hypervisor in the middle
+
+07:05.220 --> 07:09.480
+interposing itself between the virtual machine and the hardware.
+
+07:09.480 --> 07:18.510
+This is where we really start to see what people called decoupling the decoupling aspect means the virtual
+
+07:18.510 --> 07:22.870
+machine doesn't have a direct relationship with any hardware.
+
+07:23.130 --> 07:29.760
+I can move it from one physical server to another I can move it from one storage system to another.
+
+07:29.760 --> 07:36.760
+There's not this tight relationship between virtual machine and specific hardware.
+
+07:36.770 --> 07:37.730
+They're decoupled.
+
+07:37.880 --> 07:42.680
+And as we move a little bit deeper into the chorus We'll take a closer look at some of those mobility
+
+07:42.680 --> 07:43.340
+benefits.

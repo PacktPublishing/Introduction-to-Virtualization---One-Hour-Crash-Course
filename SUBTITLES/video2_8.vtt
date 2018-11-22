@@ -1,0 +1,175 @@
+WEBVTT
+
+00:00.940 --> 00:08.200
+In this video we'll take a look at a couple of the key benefits of virtualization starting with consolidation
+
+00:08.410 --> 00:09.480
+and efficiency.
+
+00:10.300 --> 00:11.420
+So let's think about it.
+
+00:11.420 --> 00:19.720
+Jim let's compare our virtual infrastructure to a gym and some of you may have experienced this before
+
+00:19.720 --> 00:26.680
+if you're a gym goer around January 1st the gym starts to get really busy.
+
+00:26.680 --> 00:27.440
+Right.
+
+00:27.760 --> 00:38.190
+So during the normal part of the year a gym with maybe 20 treadmills and 50 exercise machines may suffice.
+
+00:38.410 --> 00:43.780
+But if you're a gym owner you know that come January there's going to be two to three times as many
+
+00:43.780 --> 00:49.970
+people and it would be awesome if you could triple the size of your environment.
+
+00:51.070 --> 00:57.010
+Temporarily and then when all those people realize that yeah maybe we don't really like exercising so
+
+00:57.010 --> 00:57.980
+much.
+
+00:58.510 --> 01:00.790
+Then they start to stop coming.
+
+01:00.790 --> 01:02.890
+You could maybe get back down to size.
+
+01:02.950 --> 01:03.560
+Right.
+
+01:04.060 --> 01:06.940
+And that would be really awesome if we could do that with the gym.
+
+01:06.940 --> 01:15.080
+It would also be really great if we could do that with the hardware of our virtual data center.
+
+01:15.510 --> 01:22.740
+And when we start talking about virtualization it kind of leads us to this idea of eventually cloud
+
+01:22.740 --> 01:31.440
+computing right where there is a vendor or a service provider like Amazon Web Services for example that
+
+01:31.440 --> 01:39.330
+we can maybe spin up a bunch of temporary virtual machines on somebody else's hardware and accommodate
+
+01:39.540 --> 01:42.240
+that busy time of the year for us.
+
+01:42.240 --> 01:50.790
+But we can't really get there without virtualizing first and we're coming out with a one hour cloud
+
+01:50.790 --> 01:53.940
+course as well a crash course in cloud.
+
+01:53.940 --> 01:59.410
+But we really need to get virtualize first because you can't move to the cloud and you virtualize it.
+
+01:59.430 --> 02:06.980
+This is the first step along that path to where we can get to what we call a state of Alaska city where
+
+02:06.990 --> 02:12.710
+we can rapidly grow and rapidly shrink the resources at our disposal.
+
+02:13.050 --> 02:19.410
+Can't really do that with virtualization but virtualization is a building block towards that sort of
+
+02:19.410 --> 02:20.700
+flexibility.
+
+02:21.360 --> 02:27.310
+But well virtualization provides us with is the ability to consolidate workloads.
+
+02:27.810 --> 02:35.400
+Here we see a whole bunch of physical servers in a data center and hopefully every single one of these
+
+02:35.670 --> 02:40.930
+servers isn't running only one operating system instance.
+
+02:40.990 --> 02:48.070
+Think about how many more workloads we could accomplish if we were running 20 to 30 windows instances
+
+02:48.610 --> 02:53.960
+on every single one of these servers instead of just one per server.
+
+02:53.980 --> 02:56.840
+That's the biggest benefit of virtualization.
+
+02:57.010 --> 03:03.640
+And that's the benefit that initially drove this innovation to virtualize consolidation
+
+03:06.200 --> 03:10.640
+The other big benefit is efficiency.
+
+03:10.640 --> 03:15.960
+So here we see a few different servers that maybe we have on physical systems in our environment.
+
+03:16.010 --> 03:21.410
+Maybe we have a print server that's using like 20 percent of its CPO and 20 percent of its memory and
+
+03:21.410 --> 03:24.690
+a web server and a database server and who knows what else.
+
+03:24.710 --> 03:28.930
+These are physical servers that really are using all of their resources.
+
+03:29.860 --> 03:33.660
+And if you think about it you paid for all that hardware.
+
+03:33.790 --> 03:38.970
+If you're only using 20 percent you're wasting 80 percent.
+
+03:39.010 --> 03:48.190
+So by stranding resources on a physical host that can only run one operating system we really have two
+
+03:48.190 --> 03:50.360
+choices of how we can handle that.
+
+03:50.410 --> 03:57.700
+We could start installing other applications on our print server and making multiple applications run
+
+03:57.700 --> 03:58.810
+on the same server.
+
+03:59.050 --> 04:05.320
+But as we kind of start doing that that opens up a whole different can of worms because now if I need
+
+04:05.320 --> 04:10.420
+to reboot this print server I have to really start thinking what else is running on this print server
+
+04:10.900 --> 04:15.420
+and what else am I going to impact by doing maintenance on my print server.
+
+04:15.580 --> 04:20.520
+And so I start creating all of these interdependencies on the same hardware.
+
+04:20.650 --> 04:22.110
+And that's not a good thing.
+
+04:24.600 --> 04:30.330
+So most of the time what we end up with is just resource waste.
+
+04:30.330 --> 04:36.870
+If we instead were to get rid of those physical servers consolidate those workloads on a hypervisor
+
+04:38.410 --> 04:47.050
+and run multiple operating system instances on that hypervisor now we can really start to oversubscribed
+
+04:47.620 --> 04:54.520
+and we could start to right size and we can shoot for that sweet spot where we wanna be like 60 70 percent
+
+04:54.520 --> 04:56.290
+resource utilization.
+
+04:56.290 --> 05:02.860
+So we're using the resources that we've purchased but we're not overburdening them.
+
+05:02.980 --> 05:10.150
+That's our goal with virtualization is to maximize the investment in hardware that we make without wasting
+
+05:10.150 --> 05:13.300
+money on resources that we're never going to utilize.

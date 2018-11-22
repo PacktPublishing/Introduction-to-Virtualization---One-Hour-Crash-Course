@@ -1,0 +1,259 @@
+WEBVTT
+
+00:00.500 --> 00:09.190
+In this video I'll explain how virtual machines are able to utilize the memory resources of the hypervisor.
+
+00:09.690 --> 00:16.380
+And so let's take a look at a diagram here that will explain a little bit about how this works.
+
+00:17.350 --> 00:22.790
+And the blue blocks that you see here represent my virtual machines.
+
+00:22.900 --> 00:28.270
+So each virtual machine is going to have its own operating system.
+
+00:28.840 --> 00:31.690
+In this case I'll just assume it's Windows.
+
+00:31.690 --> 00:37.360
+So my virtual machines have the Windows operating system installed on them and I'm going to have applications
+
+00:37.360 --> 00:40.690
+running within both of these virtual machines.
+
+00:41.170 --> 00:46.410
+And when I create these vim's I'm going to allocate a certain amount of memory to them.
+
+00:48.240 --> 00:56.730
+So each VM is going to be granted for gags or 10 games or whatever a certain amount of memory and that
+
+00:56.730 --> 01:04.200
+means that that virtual machine is able to use a maximum of that amount of memory.
+
+01:05.460 --> 01:14.010
+But we're not really guaranteeing a certain amount of physical resources to any of these Vienna's so
+
+01:14.010 --> 01:16.440
+sort of like with our processors.
+
+01:16.740 --> 01:18.610
+This works much in the same way.
+
+01:18.780 --> 01:26.310
+Just because I give a virtual machine a 2 gig memory allocation doesn't mean that I'm actually guaranteeing
+
+01:26.310 --> 01:33.510
+that VM 2 gigs of physical memory at all times the virtual machines are going to share the physical
+
+01:33.510 --> 01:38.390
+memory of the host and I may have oversubscription right.
+
+01:38.390 --> 01:46.890
+So for example in this little scenario here maybe I've granted this VM for gigs of memory and this VM
+
+01:46.890 --> 01:49.600
+has been granted 8 gigs of memory.
+
+01:49.720 --> 01:55.980
+Now that's simply what I've allocated right the host itself might have a total of let's say 10 gigs
+
+01:55.980 --> 01:57.230
+of memory.
+
+01:57.570 --> 02:05.130
+This is possible because the host can efficiently share its memory across multiple virtual machines
+
+02:05.550 --> 02:08.820
+and I can over subscribe.
+
+02:08.820 --> 02:16.790
+This is how my hypervisor efficiently shares resources across multiple VM.
+
+02:17.130 --> 02:23.220
+Let's say in this scenario on my first virtual machine I launch some application.
+
+02:23.550 --> 02:30.330
+So within Windows I've launched this application and Windows has its own memory table.
+
+02:30.930 --> 02:40.930
+It's got a memory table where it tracks free and used memory pages so as far as Windows is concerned
+
+02:41.230 --> 02:50.950
+if I allocated this VM with 4 gigs of memory Windows thinks I've got 4 gigs of physical memory.
+
+02:51.060 --> 02:55.830
+Windows can't tell the difference it's inside of a virtual machine.
+
+02:55.910 --> 02:58.550
+It has no idea that it's been virtualizing.
+
+02:58.940 --> 03:06.080
+So as applications launch within Windows it will allocate pages of memory within that four gigabytes
+
+03:06.290 --> 03:10.700
+and it'll track that memory in which pages are free and which pages are used
+
+03:14.210 --> 03:17.120
+and on the hypervisor itself.
+
+03:17.300 --> 03:26.160
+The hypervisor is then mapping those memory pages that are being allocated within the guest OS to actual
+
+03:26.340 --> 03:29.160
+real physical pages of memory.
+
+03:31.760 --> 03:38.600
+And that's kind of the beauty of the way that the hypervisor works because until an application is actually
+
+03:38.600 --> 03:41.710
+launched the memory is not used.
+
+03:42.590 --> 03:49.890
+So this VM may be configured with 4 gigs of memory but it's not actually using 4 gigs.
+
+03:50.130 --> 03:55.830
+You know I'm making this for kind of messy hair but the VM is allocated 4 gigs of memory.
+
+03:55.910 --> 04:02.670
+It doesn't actually take 4 gigs of memory on the physical host until it needs it.
+
+04:02.670 --> 04:05.260
+The memory is thin provisioned.
+
+04:05.500 --> 04:10.290
+I mean does action only granted to the VM when the VM actually requires it.
+
+04:10.340 --> 04:19.250
+So that's one of the ways that my hypervisor efficiently uses memory and then maybe I've got another
+
+04:19.280 --> 04:28.310
+virtual machine that's also launching applications and Windows is marking those pages in it's own memory
+
+04:28.310 --> 04:29.450
+table right.
+
+04:29.450 --> 04:36.080
+Allocating virtual memory to those applications and those memory pages are being mapped by the hypervisor.
+
+04:36.320 --> 04:40.460
+Back to physical pages of memory on the physical host.
+
+04:40.760 --> 04:47.750
+And when a virtual machine actually closes an application the host is going to have to reclaim those
+
+04:47.750 --> 04:49.330
+memory pages.
+
+04:49.340 --> 04:57.950
+So let's assume that my virtual machine here closes app 1 when it closes app on the operating system
+
+04:57.950 --> 05:01.790
+is immediately aware that app 1 has been closed.
+
+05:02.730 --> 05:09.270
+And so the operating system marks those pages as free.
+
+05:09.280 --> 05:18.610
+Now we have to remember these windows instances these guest operating systems don't know they're running
+
+05:18.610 --> 05:20.440
+within a virtual machine.
+
+05:20.680 --> 05:25.010
+So the guest operating system is never going to inform the host.
+
+05:25.240 --> 05:27.560
+Hey I don't need these memory pages anymore.
+
+05:27.700 --> 05:36.080
+That doesn't happen so we have to have some kind of mechanism running on the physical host running on
+
+05:36.080 --> 05:43.310
+the hypervisor to occasionally look inside of the guest operating system see what memory is being used.
+
+05:43.310 --> 05:49.160
+See what memory is not being used anymore and if those memory pages are no longer in use take them back
+
+05:49.460 --> 05:52.340
+and allow other virtual machines to use them.
+
+05:52.340 --> 05:57.010
+Now there's one final thing I want to mention here while we're talking about memory.
+
+05:57.140 --> 06:01.950
+If I want to I can utilize something called a memory reservation.
+
+06:02.660 --> 06:10.220
+So for example if my VM on the left has been granted 4 gigs of memory I have allocated 4 gigs of memory
+
+06:10.550 --> 06:17.480
+if I want to I can create a memory reservation and what a memory reservation will do as it will carve
+
+06:17.480 --> 06:26.670
+out 4 gigs of physical memory and it will guarantee that memory to that virtual machine at all times.
+
+06:26.750 --> 06:31.520
+No other Reems can leverage that for gigs of memory.
+
+06:31.520 --> 06:39.560
+It's been specifically reserved for that particular virtual machine and in most cases reservations are
+
+06:39.560 --> 06:41.730
+not very desirable.
+
+06:42.410 --> 06:48.440
+And the reason I say that is because it's great for the virtual machine that you've reserved that memory
+
+06:48.440 --> 06:50.170
+for.
+
+06:50.400 --> 06:55.350
+But for all of the other virtual machines running on that host that's 4 gigs of memory that they can
+
+06:55.350 --> 06:57.540
+not use.
+
+06:57.550 --> 07:01.850
+I always sort of equate memory reservation to a kid liking a toy.
+
+07:01.930 --> 07:07.690
+Let's say there is this one a really fancy toy and a roomful of kids and one kid grabs it looks it and
+
+07:07.690 --> 07:12.070
+plays all that and nobody wants to touch that toy anymore because it's been left right.
+
+07:12.100 --> 07:14.500
+Even if he's not using that toy.
+
+07:14.740 --> 07:16.420
+Nobody wants to touch it.
+
+07:16.450 --> 07:18.870
+That's kind of like a reservation.
+
+07:19.030 --> 07:25.660
+My VM may only be using 2 gigs of this memory that it has reserved and there might be 2 gigs of memory
+
+07:25.660 --> 07:32.800
+sitting there idle but it doesn't matter that memory is reserved and no other virtual machines can use
+
+07:32.800 --> 07:33.190
+it.
+
+07:33.460 --> 07:37.780
+So we try and steer clear of reservations whenever possible.
+
+07:38.140 --> 07:46.390
+So to quickly review when a virtual machine launches an application the guest operating system has its
+
+07:46.450 --> 07:51.250
+own table tracking what we call ghast physical memory.
+
+07:51.490 --> 08:00.040
+What the operating system of the VM perceives is physical memory and it goes ahead and maps of virtual
+
+08:00.040 --> 08:06.880
+memory within the operating system to those applications which is then mapped back to the actual host
+
+08:07.270 --> 08:09.880
+physical memory by the hypervisor.

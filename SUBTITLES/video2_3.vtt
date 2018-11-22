@@ -1,0 +1,202 @@
+WEBVTT
+
+00:01.150 --> 00:08.400
+In this video I'll explain the files that make up our virtual machines and how we leverage shared storage.
+
+00:08.930 --> 00:15.650
+So here in the diagram we see we have a host that big gray box represents a host and running on the
+
+00:15.650 --> 00:15.950
+host.
+
+00:15.950 --> 00:26.480
+I've got a virtual machine and my VM is leveraging the memory CPQ network and storage hardware of that
+
+00:26.660 --> 00:27.920
+host.
+
+00:27.920 --> 00:37.290
+And it does so through the hypervisor So as the VM is running it has certain information in memory.
+
+00:37.490 --> 00:41.390
+This is part of the live state of my VM.
+
+00:41.870 --> 00:44.980
+My VM is actually running on the host.
+
+00:45.380 --> 00:53.720
+So anything that my VM is doing in that moment like playing a video or updating a database or something
+
+00:53.720 --> 00:59.200
+like that and the actions that are occurring in memory on that machine those are occurring on the host
+
+00:59.960 --> 01:06.410
+I referred to those as the live state of the virtual machine processes that is executing on the s.p.
+
+01:06.860 --> 01:14.140
+That's happening on the host network bandwidth that it's using to load up some web page that's happening
+
+01:14.140 --> 01:14.880
+on the host.
+
+01:14.920 --> 01:22.540
+And as part of the live state of my VM and utilizing those storage adapters to send storage traffic
+
+01:23.380 --> 01:32.930
+towards a desk or some other capacity device that's all happening live in real time on the host.
+
+01:33.130 --> 01:35.880
+But there's another piece that we need to think about here.
+
+01:36.250 --> 01:41.260
+So for example let's say that we're running Windows on this virtual machine.
+
+01:41.260 --> 01:46.520
+So on my Windows VM I'm going to have a drive right maybe for example in my C drive.
+
+01:47.080 --> 01:57.030
+And so Windows needs the ability to read and write data to and from that C-drive.
+
+01:57.060 --> 02:01.870
+So in order to do that it has to have access to a physical disk somewhere.
+
+02:03.520 --> 02:07.660
+And that physical disk is not going to be within the VM.
+
+02:07.720 --> 02:07.930
+Right.
+
+02:07.930 --> 02:10.960
+The virtual machine isn't really a machine.
+
+02:11.110 --> 02:14.310
+It doesn't have any dedicated physical hardware.
+
+02:14.410 --> 02:16.180
+It doesn't have any hard disks.
+
+02:17.900 --> 02:26.060
+So as that virtual machine is reading from and writing to that drive those operations are actually being
+
+02:26.060 --> 02:31.400
+redirected to a storage device somewhere.
+
+02:31.810 --> 02:38.800
+Maybe it's across a fiber channel network or across an ethernet network or maybe it's a local disk right
+
+02:38.800 --> 02:40.480
+inside of the hypervisor.
+
+02:40.540 --> 02:42.530
+It doesn't really matter.
+
+02:43.120 --> 02:49.300
+This virtual machine is going to have a set of files and one of those files is going to be this virtual
+
+02:49.310 --> 02:50.970
+disk.
+
+02:51.010 --> 02:58.510
+And so as the virtual machine needs to read from or write to disk that traffic is going to flow through
+
+02:58.510 --> 03:06.490
+a storage adapter and they're actually going to be reading from and writing to a file on some sort of
+
+03:06.490 --> 03:07.620
+storage solution.
+
+03:08.840 --> 03:13.740
+That's going to be one of the files that makes up this virtual machine.
+
+03:14.030 --> 03:16.820
+And it's probably going to be shared storage.
+
+03:16.880 --> 03:23.420
+So there's probably many other virtual machines storing their files right in that same location.
+
+03:27.650 --> 03:31.490
+Now the other thing we need to think about is what happens when I turn my virtual machine off when I
+
+03:31.490 --> 03:32.400
+shut it down.
+
+03:33.270 --> 03:35.640
+I have to be able to boot it back up.
+
+03:35.820 --> 03:42.800
+I'm going to need configuration information like how much memory is this VM supposed to get.
+
+03:42.810 --> 03:45.460
+How much CPQ is it supposed to get.
+
+03:45.480 --> 03:47.330
+What is the disk size.
+
+03:47.490 --> 03:53.940
+All that kind of configuration information so stored on my storage solution there is going to be some
+
+03:53.940 --> 03:58.230
+sort of config file that's going to be one of the files that makes up the VM.
+
+03:58.230 --> 04:02.050
+There's going to be a file for it's virtual disk.
+
+04:02.210 --> 04:08.520
+There's going to be a file that stores the contents of the BIOS for that virtual machine.
+
+04:08.910 --> 04:10.480
+Let's see what are some of the other files.
+
+04:10.500 --> 04:15.000
+If I've taken any snapshots of that VM there is going to be files for that too.
+
+04:15.120 --> 04:21.280
+And all of those files need to be stored persistently on some sort of physical storage device.
+
+04:23.670 --> 04:27.870
+So a virtual machine is made up of two things.
+
+04:28.800 --> 04:35.050
+The first thing I covered is the live state and the live stage is what's happening right now.
+
+04:35.190 --> 04:38.760
+What is in memory what hardware is being used.
+
+04:38.760 --> 04:41.810
+What programs are running on my virtual machine at that moment.
+
+04:41.880 --> 04:45.350
+That stuff is happening on the host.
+
+04:45.600 --> 04:49.230
+If the host fails all of that stuff is going to be lost.
+
+04:49.290 --> 04:52.210
+Contents of memory whatever was happening at that moment.
+
+04:52.240 --> 04:52.440
+Right.
+
+04:52.440 --> 04:56.120
+It's basically like unplugging my computer.
+
+04:56.210 --> 05:00.920
+But what will persist are the files of that virtual machine.
+
+05:01.310 --> 05:07.350
+Anything that I've saved in my C-Drive all of my configuration files all the snapshots.
+
+05:07.430 --> 05:09.340
+Those are the files that make up the VM.
+
+05:11.410 --> 05:14.270
+So always just sort of bear that in mind right.
+
+05:14.290 --> 05:20.650
+The stuff that's happening right now the stuff that's happening live that's happening on the host.
+
+05:20.830 --> 05:27.710
+The stuff that is stored persistently the files that you need to boot up my VM those exist on storage.
+
+05:27.730 --> 05:29.510
+And those are my virtual machine files.

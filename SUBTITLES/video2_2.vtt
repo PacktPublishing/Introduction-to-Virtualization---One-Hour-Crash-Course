@@ -1,0 +1,142 @@
+WEBVTT
+
+00:01.110 --> 00:07.710
+In this video I'll introduce you to type 1 and Type 2 hypervisor and explain the differences between
+
+00:07.710 --> 00:09.660
+the two.
+
+00:09.670 --> 00:18.740
+So let's start with a type 1 hypervisor a type 1 hypervisor is often called a bare metal hypervisor.
+
+00:18.790 --> 00:22.860
+This is a hypervisor where you'll go out and buy a physical server.
+
+00:23.920 --> 00:30.650
+And then you'll go ahead and install the hypervisor directly on that physical server.
+
+00:30.700 --> 00:33.270
+So that's why we call it a bare metal hypervisor.
+
+00:33.610 --> 00:41.440
+It's essentially the operating system that runs on that physical server and it provides this hypervisor
+
+00:41.470 --> 00:49.090
+capability so that multiple Vienna's can run on top of the hypervisor and there's different options
+
+00:49.090 --> 00:51.360
+out there for type 1 hypervisor.
+
+00:51.650 --> 00:57.930
+Where we have V.M. where ESX II is the most commonly utilized hypervisor.
+
+00:58.240 --> 01:03.130
+We have Microsoft Hyper-V and we have set your ex zens server.
+
+01:03.130 --> 01:05.940
+There are all different and there are other options as well.
+
+01:05.950 --> 01:10.760
+There's little red hat options and all sorts of other hypervisor options out there as well.
+
+01:10.780 --> 01:12.840
+These are probably the big three at this point.
+
+01:13.990 --> 01:18.440
+And they all sort of work the same way you buy a physical server.
+
+01:18.590 --> 01:22.650
+You could even take like a CD drive if you want to do it the old fashioned way.
+
+01:22.970 --> 01:24.250
+Put your CD drive in.
+
+01:24.350 --> 01:32.270
+Boot up that physical server and install ESX II or Hyper-V.
+
+01:32.310 --> 01:34.680
+So that's what you type 1 hypervisor is.
+
+01:34.890 --> 01:45.090
+And in the case of a type 1 hypervisor the software whether it's ESX I Hyper-V zens server it has direct
+
+01:45.090 --> 01:51.630
+access to the physical hardware and can grant that hardware to the virtual machines.
+
+01:53.590 --> 02:01.630
+With a type 2 hypervisor the hypervisor does not have direct access to the hardware.
+
+02:01.650 --> 02:08.400
+So what you're going to do with a type 2 hypervisor is you're going to buy a computer and you're going
+
+02:08.400 --> 02:10.950
+to install some operating system.
+
+02:10.950 --> 02:14.480
+Maybe it's Windows or Mac.
+
+02:15.010 --> 02:22.210
+And after I've installed that operating system on my computer I can then install VM Ware player or VM
+
+02:22.210 --> 02:25.320
+or workstation or Parallels for Mac.
+
+02:25.330 --> 02:33.840
+On top of my existing operating system and then I can run multiple virtual machines within VM Ware player
+
+02:33.840 --> 02:37.590
+within VM or workstation within parallels for Mac.
+
+02:37.590 --> 02:44.690
+The big difference here is that the hypervisor is running on top of another operating system.
+
+02:45.280 --> 02:53.870
+So if you think about it from the perspective of my Reems with a type 1 hypervisor why have my virtual
+
+02:53.870 --> 02:54.970
+machine.
+
+02:55.220 --> 03:01.130
+And then we have the hypervisor and then we have the hardware and the VM on top hypervisor in the middle
+
+03:01.340 --> 03:07.940
+hardware on the bottom and there's only one layer that the virtual machine needs to go through in order
+
+03:07.940 --> 03:10.640
+to access that physical hardware.
+
+03:10.640 --> 03:17.860
+Whereas with the type 2 hypervisor you have the VM on top then you have the hypervisor let's say VM
+
+03:17.860 --> 03:23.200
+or workstation then you have another operating system underneath that.
+
+03:23.530 --> 03:25.170
+And then finally you have the hardware.
+
+03:25.360 --> 03:31.090
+And so a type 2 hypervisor isn't really the sort of hypervisor we're going to find in a data center.
+
+03:31.180 --> 03:38.660
+It's something that somebody might run on their computer to create a lab environment for example and
+
+03:38.790 --> 03:45.670
+as a matter of fact I have an entire home lab course on you to me that covers how to install VMWare
+
+03:45.670 --> 03:54.160
+workstation on top of Windows and then create a VSE fare home lap and that's one of the common use cases
+
+03:54.160 --> 04:00.820
+for VM or workstation or if you want to you could install Windows install VM or workstation on top of
+
+04:00.820 --> 04:07.530
+Windows and then create yourself a virtual machine that you can do things like take snapshots of.
+
+04:07.540 --> 04:13.310
+So a type 2 hypervisor is one that's installed on top of an existing operating system whereas type 1.
+
+04:13.360 --> 04:15.550
+Those are a bare metal hypervisor.
+
+04:15.730 --> 04:18.760
+And those are the types you typically see inside of a data center.

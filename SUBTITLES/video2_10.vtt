@@ -1,0 +1,157 @@
+WEBVTT
+
+00:00.780 --> 00:07.200
+In this video we'll introduce some of the concepts required to convert a physical machine to a VM.
+
+00:07.680 --> 00:11.970
+And there's a few different software options out there that can do this for you.
+
+00:12.090 --> 00:14.900
+I'll walk you through those in just a moment.
+
+00:14.910 --> 00:18.920
+They all work somewhat similarly though.
+
+00:19.470 --> 00:22.830
+So let's say we have this physical server.
+
+00:22.980 --> 00:30.060
+This is a physical server with let's say Windows installed on it and it's got all of this physical hardware
+
+00:30.060 --> 00:34.320
+like C-p use a network adapters and memory and data.
+
+00:34.590 --> 00:41.690
+And my Windows operating system has drivers for things like the network adapters.
+
+00:41.690 --> 00:42.170
+Right.
+
+00:42.180 --> 00:49.350
+It knows what kind of C-p use are these HMD or Intel seepages that's got a scuzzy controller to connect
+
+00:49.350 --> 00:51.450
+to these physical disks.
+
+00:52.350 --> 00:56.120
+And so there's stuff going on inside the operating system.
+
+00:57.440 --> 01:00.680
+That is aware of the actual physical hardware.
+
+01:02.010 --> 01:09.220
+So when we take this physical server and we use one of our tools to convert it to a virtual machine
+
+01:10.500 --> 01:15.840
+the first step that happens is the virtual machine is created.
+
+01:16.050 --> 01:22.830
+We're going to have a virtual machine present on one of our hypervisor is with the appropriate CPQ network
+
+01:22.860 --> 01:27.970
+memory and storage specifications.
+
+01:28.230 --> 01:33.330
+And it might not match up with exactly what we have in the physical server.
+
+01:34.610 --> 01:46.600
+As a matter of fact my VM may actually run better and faster if I give it fewer C.P. use when we create
+
+01:46.600 --> 01:47.560
+a virtual machine.
+
+01:47.560 --> 01:52.250
+Our goal is always to right size that virtual machine.
+
+01:52.370 --> 01:57.800
+It's never just take what the physical server had and duplicate it.
+
+01:57.810 --> 02:03.420
+Our goal is always the right size it to give the virtual machine the correct resources that it needs
+
+02:03.690 --> 02:14.460
+to do its job and nothing extra and we want our AVMA to be at about 60 70 percent utilization for CPQ
+
+02:14.790 --> 02:16.170
+and the same for memory.
+
+02:16.200 --> 02:22.320
+We don't want him sitting there at 10 percent Seip utilization with four Scipio's that's not good.
+
+02:26.090 --> 02:31.850
+We're also going to need a neck and a network interface card on the virtual machine.
+
+02:31.850 --> 02:36.880
+And this is going to be a hardware change for the guest operating system.
+
+02:36.890 --> 02:43.580
+So what we're going to now have is probably a network interface card that was specifically designed
+
+02:43.640 --> 02:46.030
+to run on a virtual machine.
+
+02:46.100 --> 02:54.380
+A good example of this is the VM where VM X net three virtual Nic the beautiful thing about this though
+
+02:55.730 --> 03:04.730
+is that now the virtual machine has no relationship with the actual physical hardware so we get mobility.
+
+03:04.730 --> 03:11.750
+But the other benefit that people don't think about so often is the fact that as I virtualise all of
+
+03:11.750 --> 03:17.800
+my windows instances and all of my Linux instances they're going to have a similar set of virtual hardware.
+
+03:17.930 --> 03:22.330
+It's going to really allow me to standardize my operating system configuration
+
+03:24.760 --> 03:33.280
+so what we place our physical hardware with virtual hardware and we'll replace our hard disk with a
+
+03:33.280 --> 03:35.660
+virtual disk.
+
+03:35.690 --> 03:38.970
+This is a file that could be on local storage of the host.
+
+03:39.040 --> 03:43.770
+It could be on a Fiber Channel or ice Gussie's storage array could be on an NFL server.
+
+03:44.150 --> 03:51.950
+Doesn't really matter where what matters is that we create this virtual disk and that we migrate all
+
+03:51.950 --> 04:00.960
+of the data from the source virtual machine to that virtual desk and when the VM powers on it's got
+
+04:00.960 --> 04:09.030
+its new hardware it's got its new disk and it should just work.
+
+04:09.060 --> 04:13.440
+So that's how we actually convert a physical server to a virtual machine.
+
+04:13.560 --> 04:20.010
+And depending on which hypervisor you're using VM Where has the center converter.
+
+04:20.490 --> 04:30.630
+Microsoft has the VM converter and VM has a product called disk to HD and now VM is a third party to
+
+04:30.630 --> 04:32.100
+this process.
+
+04:32.100 --> 04:37.980
+But they offer a conversion utility that you can use for Hyper-V and the VM product line is really excellent
+
+04:38.160 --> 04:40.530
+if you're considering virtualizing.
+
+04:40.530 --> 04:41.880
+It's definitely worth a look.
+
+04:41.880 --> 04:46.140
+They provide some excellent tools.
+
+04:46.300 --> 04:51.890
+So now we can start using these solutions to take our existing physical servers convert them to CMS
+
+04:52.180 --> 04:54.070
+and run them on our hypervisor.

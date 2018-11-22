@@ -1,0 +1,208 @@
+WEBVTT
+
+00:00.300 --> 00:06.360
+Over the next four videos I'm going to go through what I call the four food groups for our virtual machines
+
+00:07.420 --> 00:10.690
+are virtual machines need certain things in their diet.
+
+00:10.860 --> 00:15.350
+They need to eat certain resources in order to be healthy and happy.
+
+00:15.540 --> 00:23.140
+And the first resource that we're going to talk about the first food group is or.
+
+00:23.330 --> 00:30.560
+And the reason I like to equate these to food groups is because if the virtual machine is lacking any
+
+00:30.560 --> 00:37.190
+of these if any of these are performing poorly then the VM is going to perform poorly.
+
+00:37.250 --> 00:42.990
+You're going to have all the you and memory and storage bandwidth in the world if your network is slow.
+
+00:42.990 --> 00:45.140
+You've got to slow VM.
+
+00:45.420 --> 00:50.160
+So all of these four food groups are equally important.
+
+00:51.300 --> 00:53.510
+But we'll start with C-p virtualization.
+
+00:53.520 --> 01:02.320
+So how does my virtual machine get access to the C.P. resources of the physical host.
+
+01:02.330 --> 01:08.700
+So here's my host and I've got to C-p sockets.
+
+01:09.110 --> 01:16.310
+And for those of you who aren't really too familiar with the CPE architecture when you install a physical
+
+01:16.340 --> 01:20.050
+C.P. you are like we call them in the virtualization world.
+
+01:20.060 --> 01:27.830
+APCP you install a physical you in a system that's a C.P socket.
+
+01:27.840 --> 01:34.140
+Now within that socket you may have more than four processor cores or less than four processor course.
+
+01:34.230 --> 01:39.410
+In this case I just chose quad core C.P use.
+
+01:39.480 --> 01:47.640
+So I've got a physical host with two physical C-p use installed and each physical CPO has four processor
+
+01:47.640 --> 01:50.000
+course.
+
+01:50.130 --> 01:58.650
+And so now when I start creating my virtual machines I'm going to allocate my virtual machines a certain
+
+01:58.650 --> 02:02.210
+number of virtual C.P. use.
+
+02:02.280 --> 02:07.950
+So here we see a VM that has been allocated to virtual C.P use.
+
+02:08.100 --> 02:09.170
+Now what does that mean.
+
+02:09.330 --> 02:16.800
+Well that means that this virtual machine has access to two physical processor cores.
+
+02:17.580 --> 02:24.900
+By creating a VM with two virtual C.P. you is basically saying you are allowed to leverage two physical
+
+02:24.900 --> 02:27.080
+processor of course.
+
+02:27.330 --> 02:30.340
+I'm not making any guarantees to this V-Amp.
+
+02:30.480 --> 02:34.940
+I'm not saying you're the only one who's going to have access to those cars.
+
+02:34.980 --> 02:38.240
+I'm not saying you can have full access to those cores at all times.
+
+02:39.320 --> 02:46.490
+What I'm saying when I create a VM with two virtual C-p use is you have the ability to try to use two
+
+02:46.490 --> 02:56.450
+C.P of course they might be busy they might not and might create other V.M. that are also leveraging
+
+02:56.720 --> 03:00.390
+those same process or cores.
+
+03:00.410 --> 03:11.850
+So here is a VM with four VCP or four virtual C-p is and this VM just happens to be accessing the same
+
+03:11.850 --> 03:16.140
+two processor cores that my first VM was.
+
+03:16.140 --> 03:24.630
+So they are now sharing those physical processor cores.
+
+03:24.720 --> 03:33.420
+So it's important to properly size my virtual machines and properly size my physical host if I have
+
+03:33.420 --> 03:37.680
+too many venoms sharing the same set of processor cores.
+
+03:37.890 --> 03:40.770
+Those vehicles are going to perform poorly.
+
+03:41.010 --> 03:49.230
+If I have virtual machines that have really CPQ intensive tasks to carry out I may want to put them
+
+03:49.590 --> 03:52.940
+on a dedicated set of processors.
+
+03:53.340 --> 03:57.720
+So you really need to think about the types of workloads that your virtual machines are going to be
+
+03:57.720 --> 04:05.770
+performing and how efficiently can they really share C-p processes with other virtual machines.
+
+04:05.880 --> 04:11.760
+Now in most cases you can get a pretty good consolidation ratio where you're going to have many Reems
+
+04:11.850 --> 04:17.970
+sharing the same processors but it really depends on the workload of those virtual machines.
+
+04:19.540 --> 04:21.600
+And how powerful those processors are.
+
+04:23.540 --> 04:31.250
+The other concept that is very important here that I want to take a moment to talk about is right sizing
+
+04:31.250 --> 04:34.590
+your virtual machines.
+
+04:34.900 --> 04:41.980
+So if I have a virtual machine like this one in purple here I've created it with four virtual c.p.
+
+04:42.330 --> 04:42.800
+Right.
+
+04:42.850 --> 04:49.330
+Maybe this VM used to be a physical server that I've converted to a virtual machine and maybe that physical
+
+04:49.330 --> 04:52.570
+server also had four processors right.
+
+04:52.600 --> 04:56.970
+Maybe it was a physical server with a quad core CPO.
+
+04:57.730 --> 05:03.910
+And so I think to myself OK I've got this physical server with a quad core C.P. you let me create a
+
+05:03.910 --> 05:06.730
+virtual machine with four virtual.
+
+05:06.940 --> 05:14.170
+So that it has the same resources that it used to and in some cases that approach is fine.
+
+05:14.990 --> 05:18.190
+In some cases it's not.
+
+05:18.210 --> 05:28.320
+Let's assume that this virtual machine is on average utilising somewhere around 25 percent of its C.P
+
+05:28.320 --> 05:37.150
+you know 25 percent of it CPO Well then it doesn't really need for virtual C-p use does it.
+
+05:38.970 --> 05:45.510
+I could take away two of those virtual C-p use and this VM would be working just fine.
+
+05:45.720 --> 05:50.480
+It would be closer to a 50 percent CPQ utilization but there's nothing wrong with that.
+
+05:52.070 --> 05:59.080
+And the beauty of properly sizing and bringing this thing down to two virtual C-p use is guess what
+
+05:59.090 --> 06:05.860
+it's not going to be fighting with my first VM for access to these processor cores anymore.
+
+06:05.900 --> 06:09.510
+Right they're all going to play a little bit more nicely together.
+
+06:10.870 --> 06:17.050
+So we want to think about that concept as well when we're creating our virtual machines.
+
+06:17.050 --> 06:23.950
+We want to right size those Vienna's and give them the correct CPQ account.
+
+06:23.980 --> 06:30.150
+If a VM needs for virtual C.P. use then by all means give it for virtual C.P. use.
+
+06:30.160 --> 06:32.900
+But if it only needs to you should only give it to.
+
+06:33.040 --> 06:35.590
+We want to strive to always right size.
+
+06:35.770 --> 06:40.330
+Our virtual machines especially when it comes to C-p resources.

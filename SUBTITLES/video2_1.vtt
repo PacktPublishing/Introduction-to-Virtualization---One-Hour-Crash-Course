@@ -1,0 +1,127 @@
+WEBVTT
+
+00:00.200 --> 00:05.020
+Do this video we'll learn about virtual machines hosts and hypervisor.
+
+00:05.550 --> 00:12.390
+And in order to truly understand what a virtual machine is we're actually going to start by thinking
+
+00:12.390 --> 00:15.830
+about a physical machine a physical server.
+
+00:15.960 --> 00:24.810
+So when we purchase a physical server it comes with memory CPQ it comes with Network Interface Cards
+
+00:25.380 --> 00:31.860
+and adapters to connect to the disk capacity of that physical server so also comes with all that hardware
+
+00:31.860 --> 00:32.370
+built in.
+
+00:32.370 --> 00:38.970
+And then we install some operating system right in this case let's assume it's windows and then we can
+
+00:38.970 --> 00:40.410
+run applications.
+
+00:40.410 --> 00:45.900
+And what happens in the physical server is all of these applications run inside of our operating system
+
+00:46.530 --> 00:50.410
+and the operating system kind of owns that hardware.
+
+00:50.550 --> 00:57.450
+And so as applications are utilizing the hardware the operating system can control them can control
+
+00:57.450 --> 01:05.470
+how much resources they have access to and it sort of handles the intermediation between the applications
+
+01:05.920 --> 01:06.730
+and the hardware.
+
+01:06.740 --> 01:09.230
+Self.
+
+01:09.330 --> 01:12.830
+Now let's think about a virtual machine.
+
+01:14.130 --> 01:22.260
+And instead of having a physical server here let's replace it with a host and instead of installing
+
+01:22.260 --> 01:27.800
+a simple operating system on this host let's install a hypervisor instead.
+
+01:27.870 --> 01:32.770
+And now we're not going to run applications on this physical system.
+
+01:32.820 --> 01:40.350
+We're actually going to run virtual machines each with their own independent operating system.
+
+01:40.380 --> 01:44.860
+Some of these V-Amp could be windows virtual machines some could be Linux.
+
+01:44.880 --> 01:46.730
+It really doesn't matter.
+
+01:46.820 --> 01:51.740
+And in this case the virtual machines are still running on the same physical system.
+
+01:51.780 --> 01:59.550
+It will still buy a server the same way we always have and it will have memory and CPQ and physical
+
+01:59.550 --> 02:07.940
+network interface cards and possibly storage adapters possibly local storage and then we're going to
+
+02:07.940 --> 02:12.600
+install a hypervisor on it instead of installing Windows or Linux.
+
+02:12.630 --> 02:23.640
+I'll install ESX II or Hyper-V or some other hypervisor and the hypervisor acts as the intermediary.
+
+02:23.640 --> 02:29.720
+It interposes itself between the virtual machines and the hardware.
+
+02:29.720 --> 02:33.550
+This is the magic sauce that makes virtualization work.
+
+02:33.560 --> 02:38.190
+Now all of my Reems can share a common set of physical hardware.
+
+02:38.420 --> 02:44.630
+I can have a bunch of virtual machines each with their own independent operating system sharing a common
+
+02:44.630 --> 02:51.420
+set of memory CPQ common physical network interface cards and storage adapters as well.
+
+02:53.030 --> 02:59.010
+And so as my first virtual machine goes to access hardware it's utilizing the memory of the host.
+
+02:59.180 --> 03:01.220
+It's utilizing the C.P. of the host.
+
+03:01.340 --> 03:04.550
+It's utilizing all of the physical resources of the host.
+
+03:04.970 --> 03:10.580
+But what's happening is the hypervisor is actually the thing that's in control of those physical resources
+
+03:11.150 --> 03:18.740
+the hypervisor has direct access to the physical hardware and it's controlling which virtual machines
+
+03:18.740 --> 03:23.830
+get access to how much memory how much physical Sipa access do they get.
+
+03:24.440 --> 03:27.920
+And how do they access their network and storage adapters.
+
+03:27.920 --> 03:35.120
+And as more virtual machines are created on this hypervisor They're also sharing that exact same set
+
+03:35.180 --> 03:37.490
+of physical resources.
+
+03:37.550 --> 03:43.490
+So that's what the hypervisor controls as how are those resources shared how were those resources presented
+
+03:43.790 --> 03:45.840
+to the individual virtual machines.
